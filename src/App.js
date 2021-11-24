@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import CuentaNueva from "./components/auth/CuentaNueva";
+import Login from "./components/auth/Login";
+import Proyectos from "./components/proyectos/Proyectos";
+import ProyectoState from "./context/proyectos/ProyectoState";
+import TareaState from "./context/tareas/TareaState";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ProyectoState>
+      <TareaState>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/cuenta_nueva" element={<CuentaNueva />} />
+            <Route path="/proyectos" element={<Proyectos />} />
+          </Routes>
+        </BrowserRouter>
+      </TareaState>
+    </ProyectoState>
   );
 }
 
