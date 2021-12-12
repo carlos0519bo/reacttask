@@ -1,7 +1,17 @@
 import React, { useReducer } from "react";
 import TareaContext from "./TareaContext";
 import TareaReducer from "./TareaReducer";
-import { TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_FORM, ELIMINAR_TAREA } from "../../types/Index";
+import {
+  TAREAS_PROYECTO,
+  AGREGAR_TAREA,
+  VALIDAR_FORM,
+  ELIMINAR_TAREA,
+  ESTADO_TAREA,
+  EDITAR_TAREA,
+  ACTUALIZAR_TAREA,
+  LIMPIAR_TAREA,
+} from "../../types/Index";
+import { uuid } from "short-uuid";
 
 const TareaState = (props) => {
   const initialState = {
@@ -15,7 +25,8 @@ const TareaState = (props) => {
       { id: 7, nombre: "Crear navbar", estado: true, proyectoId: 1 },
     ],
     tareasDelProyecto: null,
-    errorformulario: false
+    errorformulario: false,
+    tareaseleccionada: null,
   };
 
   //Creamos nuestro dispatch y state
@@ -30,29 +41,59 @@ const TareaState = (props) => {
   };
 
   //funciñón para agregar una tarea al proyecto
-  const agregarTarea = tarea =>{
-      dispatch({
-          type: AGREGAR_TAREA,
-          payload: tarea
-      })
-  }
+  const agregarTarea = (tarea) => {
+    tarea.id = uuid();
+    dispatch({
+      type: AGREGAR_TAREA,
+      payload: tarea,
+    });
+  };
 
   //Mostrar error
   const mostrarError = () => {
     dispatch({
-      type: VALIDAR_FORM
+      type: VALIDAR_FORM,
     });
   };
 
   //Eliminar tarea
-  const eliminarTarea = tareaId => {
+  const eliminarTarea = (tareaId) => {
     dispatch({
       type: ELIMINAR_TAREA,
-      payload: tareaId
-    })
-  }
+      payload: tareaId,
+    });
+  };
 
+  //Cambiar estado tarea
+  const cambiarEstado = (tarea) => {
+    dispatch({
+      type: ESTADO_TAREA,
+      payload: tarea,
+    });
+  };
 
+  //Editar tarea seleccionada
+  const editarTarea = (tarea) => {
+    dispatch({
+      type: EDITAR_TAREA,
+      payload: tarea,
+    });
+  };
+
+  //Actualizar tarea.
+  const actualizarTarea = (tarea) => {
+    dispatch({
+      type: ACTUALIZAR_TAREA,
+      payload: tarea,
+    });
+  };
+
+  //Elimina la tarea seleccionada
+  const eliminarSeleccion = () => {
+    dispatch({
+      type: LIMPIAR_TAREA,
+    });
+  };
 
   return (
     <TareaContext.Provider
@@ -60,10 +101,15 @@ const TareaState = (props) => {
         tareas: state.tareas,
         tareasDelProyecto: state.tareasDelProyecto,
         errorformulario: state.errorformulario,
+        tareaseleccionada: state.tareaseleccionada,
         obtenerTareas,
         agregarTarea,
         mostrarError,
-        eliminarTarea
+        eliminarTarea,
+        cambiarEstado,
+        editarTarea,
+        actualizarTarea,
+        eliminarSeleccion,
       }}
     >
       {props.children}

@@ -6,10 +6,10 @@ const ListaProyectos = () => {
   //Importamos proyectos del state inicial
   const { proyectos, obtenerProyectos } = useContext(ProyectoContext);
 
-
   //Obtener proyectos cuando cargamos el componente
   useEffect(() => {
     obtenerProyectos();
+    // eslint-disable-next-line
   }, []);
 
   //Revisamos si proyectos tiene contenido

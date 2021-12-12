@@ -1,14 +1,25 @@
-import React from 'react'
+import React, { useContext, useEffect } from "react";
+import AuthContext from "../../context/autenticacion/AuthContext";
 
 const Barra = () => {
-    return (
-        <header className="app-header">
-              <p className="nombre-usuario">Hola, <span>Carlos</span></p>  
-              <nav className="nav-principal">
-                  <a href="!#">Cerrar Sesión</a>
-              </nav>
-        </header>
-    )
-}
+  //Extraer la información de autenticación
+  const { usuario, usuarioAutenticado } = useContext(AuthContext);
 
-export default Barra
+  useEffect(() => {
+    usuarioAutenticado();
+  }, []);
+  return (
+    <header className="app-header">
+        {usuario ? 
+      <p className="nombre-usuario">
+        Hola, <span>{usuario.name}</span>
+      </p> : null
+    }
+      <nav className="nav-principal">
+        <a href="!#">Cerrar Sesión</a>
+      </nav>
+    </header>
+  );
+};
+
+export default Barra;

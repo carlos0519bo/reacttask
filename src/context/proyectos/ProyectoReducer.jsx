@@ -7,6 +7,7 @@ import {
   ELIMINAR_PROYECTO,
 } from "../../types/Index";
 
+// eslint-disable-next-line
 export default (state, action) => {
   switch (action.type) {
     case FORMULARIO_PROYECTO:
@@ -22,7 +23,7 @@ export default (state, action) => {
     case AGREGAR_PROYECTO:
       return {
         ...state,
-        proyectos: [...state.proyectos, action.payload],
+        proyectos: [action.payload, ...state.proyectos],
         formulario: false,
         errorformulario: false,
       };

@@ -11,8 +11,6 @@ const ListadoTareas = () => {
   //Desestructuramos el array para sacar la información
   const [proyectoSeleccionado] = proyecto;
 
-  
-
   //Función para eliminar un proyecto.
   const onClickEliminar = () => {
     eliminarProyecto(proyectoSeleccionado.id);
@@ -27,7 +25,9 @@ const ListadoTareas = () => {
             <p>No tienes tareas</p>
           </li>
         ) : (
-          tareasDelProyecto.map((tarea) => <Tarea tarea={tarea} key={tarea.id} />)
+          tareasDelProyecto.map((tarea) => (
+            <Tarea tarea={tarea} key={tarea.id} />
+          ))
         )}
       </ul>
       <button className="btn btn-eliminar" onClick={onClickEliminar}>
