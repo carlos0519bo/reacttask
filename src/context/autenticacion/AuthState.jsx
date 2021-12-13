@@ -17,7 +17,7 @@ import tokenAuth from '../../config/tokenAuth'
 
     const initialState = {
         token: localStorage.getItem('token'),
-        autenticado: null,
+        autenticado: false,
         usuario: null,
         mensaje: null
     }
@@ -103,7 +103,8 @@ import tokenAuth from '../../config/tokenAuth'
             mensaje: state.mensaje,
             registrarUsuario,
             iniciarSesion,
-            usuarioAutenticado
+            usuarioAutenticado,
+
         }}>
             {props.children}
         </AuthContext.Provider>
